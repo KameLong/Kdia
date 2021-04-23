@@ -1,6 +1,6 @@
 # kdia
 
-Pathベースで構成される鉄道ダイヤソフト
+Pathベースのダイヤソフト
 
 ## Getting Started
 
