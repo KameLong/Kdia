@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 void main() {
   runApp(MyApp());
 }
@@ -9,7 +10,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('ja', ''), //日本語
+        const Locale('en', ''), //英語
+      ],
       title: 'Flutter Demo',
+
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -28,7 +40,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key,required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -94,13 +106,14 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'You have pushed the button this many times:',
+              AppLocalizations.of(context)!.hello("kazutxt"),
             ),
             Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+              AppLocalizations.of(context)!.allow,
             ),
-          ],
+            Text(
+              AppLocalizations.of(context)!.deny,
+            ),         ],
         ),
       ),
       floatingActionButton: FloatingActionButton(

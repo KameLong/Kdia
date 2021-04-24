@@ -1,0 +1,8 @@
+{
+  "@@locale": "ja",
+  "hello": "ようこそ {name}",
+  "login": "ログイン",
+  "info": "情報",
+  "allow": "許可",
+  "deny":"拒否"
+}
