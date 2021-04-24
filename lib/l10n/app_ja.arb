@@ -4,5 +4,8 @@
   "login": "ログイン",
   "info": "情報",
   "allow": "許可",
-  "deny":"拒否"
+  "deny":"拒否",
+
+  "kdiadataDefaultProjectName":"新しいプロジェクト"
+
 }
