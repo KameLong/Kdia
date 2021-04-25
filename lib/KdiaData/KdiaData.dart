@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'dart:typed_data';
 import 'dart:ui';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
 
 import 'package:uuid/uuid.dart';
 
@@ -20,15 +21,39 @@ class KdiaProject{
   String name=NEW_PROJECT;
 
   List<Station> stations=[];
-  final Future<Database> database = openDatabase(
-      join('memo_database.db'),
-      onCreate: (db, version) {
-  return db.execute(
-  "CREATE TABLE memo(id INTEGER PRIMARY KEY, text TEXT, priority INTEGER)",
-  );
-  },
-  version: 1,
-  );
+  void _createTableV1(Batch batch) {
+    batch.execute('''
+create table station (id text,name text,lat real,lon real);
+create table stop(id text,station_id text,seq int,name text,short_name text);
+create table train(id text,name text,number text);
+create table train_class(id text,name text,color text);
+create table calendar(id text,name text);
+create table timetable(id text,name text,calendar_id text);
+create table timetable_route(id text,timetable_id text,route_id text,seq int,reversed int);
+create table timetable_station_style(id text,timetable_id text,station_id text,is_main int,show_style_down int, show_style_up int);
+create table timetable_train_seq(id text,timetable_id text,train_id text,direction int,seq int);
+create table route(id text,name text,color text);
+    ) ''');
+  }
+  createNewProject()async{
+    print((await getApplicationDocumentsDirectory()).path);
+
+    final String path = join((await getApplicationDocumentsDirectory()).path, "test.sql");
+    return await openDatabase(
+      path,
+      version: 1,
+      onCreate: (db, version) async {
+        var batch = db.batch();
+        _createTableV1(batch);
+        await batch.commit();
+      },
+      onDowngrade: onDatabaseDowngradeDelete,
+    );
+
+  }
+
+
+
 
 }
 ///一つの駅を表す
