@@ -13,17 +13,19 @@ import 'KdiaData.dart';
 class TimeTable{
   Uint8List id=Uuid.parseAsByteList(Uuid().v4());
   List<Route> routes=[];
-  TimeTableStyle? style=null;
 
   Map<Station,TimeTableStationStyle>stationStyle={};
 
+  Calendar calendar;
+  List<Train>downTrain=[];
+  List<Train>upTrain=[];
 
 
-
+  TimeTable(this.calendar);
 
 }
 class TimeTableStyle{
-
+  //今後作る
 }
 
 //時刻表駅スタイル
@@ -34,3 +36,4 @@ class TimeTableStationStyle{
   bool showAri=false;
   bool showStop=false;
 }
+

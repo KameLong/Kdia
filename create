@@ -1,0 +1,10 @@
+create table station (id text,name text,lat real,lon real);
+create table stop(id text,station_id text,seq int,name text,short_name text);
+create table train(id text,name text,number text);
+create table train_class(id text,name text,color text);
+create table calendar(id text,name text);
+create table timetable(id text,name text,calendar_id text);
+create table timetable_route(id text,timetable_id text,route_id text,seq int,reversed int);
+create table timetable_station_style(id text,timetable_id text,station_id text,is_main int,show_style_down int, show_style_up int);
+create table timetable_train_seq(id text,timetable_id text,train_id text,direction int,seq int);
+create table route(id text,name text,color text);

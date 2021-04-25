@@ -126,6 +126,11 @@ class TrainClass{
   }
 
 }
+class Calendar{
+  Uint8List id=Uuid.parseAsByteList(Uuid().v4());
+  String name="";
+
+}
 
 enum Direction{
   DOWN,
