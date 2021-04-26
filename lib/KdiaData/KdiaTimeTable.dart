@@ -12,7 +12,7 @@ import 'KdiaData.dart';
 ///このクラスでは時刻表で用いるRoute,時刻表スタイルなどを保持します。
 class TimeTable{
   Uint8List id=Uuid.parseAsByteList(Uuid().v4());
-  List<Route> routes=[];
+  List<Uint8List> routes=[];
 
   Map<Station,TimeTableStationStyle>stationStyle={};
 
@@ -32,8 +32,7 @@ class TimeTableStyle{
 class TimeTableStationStyle{
   Uint8List id=Uuid.parseAsByteList(Uuid().v4());
   bool isMainStation=false;
-  bool showDep=true;
-  bool showAri=false;
-  bool showStop=false;
+  int showDown=1;
+  int showp=1;
 }
 
