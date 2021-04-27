@@ -32,60 +32,68 @@ class KdiaProject{
     name = "サンプルプロジェクト";
     stations.add(new Station()
       ..id = Uuid.parseAsByteList("81d57f71-fac2-4e55-b5f8-b3db40214628")
-      ..name = "横浜"
-      ..stops.add(new Stop()
+      ..name = "横浜");
+    stations[stations.length-1].stops.add(
+        new Stop(stations[stations.length-1])
         ..id = Uuid.parseAsByteList("5f8ff5bc-aa23-4a19-9b63-d0422dda5d2a")
         ..name = "横浜"
-        ..shortName = "1"));
+        ..shortName = "1");
     stations.add(new Station()
       ..id = Uuid.parseAsByteList("9313510f-e605-4d38-b42e-ae9e28fcb1b3")
-      ..name = "星川"
-      ..stops.add(new Stop()
+      ..name = "星川");
+    stations[stations.length-1].stops.add(
+        new Stop(stations[stations.length-1])
         ..id = Uuid.parseAsByteList("9982adf6-18d2-416b-9dcb-a0919d00b912")
         ..name = "星川"
-        ..shortName = "1"));
+        ..shortName = "1");
     stations.add(new Station()
       ..id = Uuid.parseAsByteList("7d9a837f-e41d-4c82-84b3-a46b5cff7be2")
-      ..name = "西谷"
-      ..stops.add(new Stop()
+      ..name = "西谷");
+    stations[stations.length-1].stops.add(
+        new Stop(stations[stations.length-1])
         ..id = Uuid.parseAsByteList("7d9a837f-e41d-4c82-84b3-a46b5cff7be2")
         ..name = "西谷"
-        ..shortName = "1"));
+        ..shortName = "1");
     stations.add(new Station()
       ..id = Uuid.parseAsByteList("53534708-9eac-418b-8640-671acbf247c2")
-      ..name = "二俣川"
-      ..stops.add(new Stop()
+      ..name = "二俣川");
+    stations[stations.length-1].stops.add(
+        new Stop(stations[stations.length-1])
         ..id = Uuid.parseAsByteList("ce1aeb53-d754-43f6-a058-30a637fa25f3")
         ..name = "二俣川"
-        ..shortName = "1"));
+        ..shortName = "1");
     stations.add(new Station()
       ..id = Uuid.parseAsByteList("8cd6ccb0-a139-4cd5-ae6b-d5a8f64bab29")
-      ..name = "大和"
-      ..stops.add(new Stop()
+      ..name = "大和");
+        stations[stations.length-1].stops.add(
+        new Stop(stations[stations.length-1])
         ..id = Uuid.parseAsByteList("36411d14-765c-41f1-95e3-7fce84558923")
         ..name = "大和"
-        ..shortName = "1"));
+        ..shortName = "1");
     stations.add(new Station()
       ..id = Uuid.parseAsByteList("60e1e918-81ab-437a-a3cc-b60c502eae9f")
-      ..name = "海老名"
-      ..stops.add(new Stop()
+      ..name = "海老名");
+        stations[stations.length-1].stops.add(
+        new Stop(stations[stations.length-1])
         ..id = Uuid.parseAsByteList("4c7ea40a-aa40-4c95-8d76-c53009189e7c")
         ..name = "海老名"
-        ..shortName = "1"));
+        ..shortName = "1");
     stations.add(new Station()
       ..id = Uuid.parseAsByteList("87ed37aa-8219-4252-8b08-e71c22a1d56f")
-      ..name = "新宿"
-      ..stops.add(new Stop()
+      ..name = "新宿");
+        stations[stations.length-1].stops.add(
+        new Stop(stations[stations.length-1])
         ..id = Uuid.parseAsByteList("e57f3ee3-8e0a-4ce2-b981-98fb966cc846")
         ..name = "新宿"
-        ..shortName = "1"));
+        ..shortName = "1");
     stations.add(new Station()
       ..id = Uuid.parseAsByteList("dbf73ecf-8a7f-452a-9248-b5d85c919b73")
-      ..name = "湘南台"
-      ..stops.add(new Stop()
+      ..name = "湘南台");
+        stations[stations.length-1].stops.add(
+        new Stop(stations[stations.length-1])
         ..id = Uuid.parseAsByteList("4d0d6c40-b85a-4ba2-a5b7-8bba64083a25")
         ..name = "湘南台"
-        ..shortName = "1"));
+        ..shortName = "1");
     trains.add(new Train()
       ..id = Uuid.parseAsByteList("0200a722-ead5-4ff1-b681-c1bf5848aa3f")
       ..name = "相鉄本線下り"
@@ -148,27 +156,27 @@ class KdiaProject{
       ..stationStyle[stations[0]]=(new TimeTableStationStyle()
         ..isMainStation=true
         ..showDown=1
-        ..showp=2)
+        ..showUp=2)
       ..stationStyle[stations[1]]=(new TimeTableStationStyle()
         ..isMainStation=false
         ..showDown=1
-        ..showp=1)
+        ..showUp=1)
       ..stationStyle[stations[2]]=(new TimeTableStationStyle()
         ..isMainStation=false
         ..showDown=1
-        ..showp=1)
+        ..showUp=1)
       ..stationStyle[stations[3]]=(new TimeTableStationStyle()
         ..isMainStation=true
         ..showDown=3
-        ..showp=3)
+        ..showUp=3)
       ..stationStyle[stations[4]]=(new TimeTableStationStyle()
         ..isMainStation=false
         ..showDown=1
-        ..showp=1)
+        ..showUp=1)
       ..stationStyle[stations[5]]=(new TimeTableStationStyle()
         ..isMainStation=true
         ..showDown=2
-        ..showp=1)
+        ..showUp=1)
       ..downTrain.add(trains[0])
       ..downTrain.add(trains[1])
       ..downTrain.add(trains[2])
@@ -184,23 +192,23 @@ class KdiaProject{
       ..stationStyle[stations[0]]=(new TimeTableStationStyle()
         ..isMainStation=true
         ..showDown=1
-        ..showp=2)
+        ..showUp=2)
       ..stationStyle[stations[1]]=(new TimeTableStationStyle()
         ..isMainStation=false
         ..showDown=1
-        ..showp=1)
+        ..showUp=1)
       ..stationStyle[stations[2]]=(new TimeTableStationStyle()
         ..isMainStation=false
         ..showDown=1
-        ..showp=1)
+        ..showUp=1)
       ..stationStyle[stations[3]]=(new TimeTableStationStyle()
         ..isMainStation=true
         ..showDown=3
-        ..showp=3)
+        ..showUp=3)
       ..stationStyle[stations[7]]=(new TimeTableStationStyle()
         ..isMainStation=false
         ..showDown=2
-        ..showp=1)
+        ..showUp=1)
       ..downTrain.add(trains[1])
       ..downTrain.add(trains[2])
       ..downTrain.add(trains[0])
@@ -216,23 +224,23 @@ class KdiaProject{
       ..stationStyle[stations[6]]=(new TimeTableStationStyle()
         ..isMainStation=true
         ..showDown=1
-        ..showp=2)
+        ..showUp=2)
       ..stationStyle[stations[2]]=(new TimeTableStationStyle()
         ..isMainStation=false
         ..showDown=1
-        ..showp=1)
+        ..showUp=1)
       ..stationStyle[stations[3]]=(new TimeTableStationStyle()
         ..isMainStation=false
         ..showDown=3
-        ..showp=3)
+        ..showUp=3)
       ..stationStyle[stations[4]]=(new TimeTableStationStyle()
         ..isMainStation=false
         ..showDown=1
-        ..showp=1)
+        ..showUp=1)
       ..stationStyle[stations[5]]=(new TimeTableStationStyle()
         ..isMainStation=true
         ..showDown=2
-        ..showp=1)
+        ..showUp=1)
       ..downTrain.add(trains[2])
       ..downTrain.add(trains[0])
       ..downTrain.add(trains[1])
@@ -240,33 +248,199 @@ class KdiaProject{
       ..upTrain.add(trains[3])
       ..upTrain.add(trains[4])
     );
-    getCsv("test");
+    saveAsCsv("test.csv");
 
   }
-
-
-  void getCsv(String fileName){
-    print(Directory.current);
+  ///CSV形式の文字列を出力します。
+  String getCsv(){
     String result="";
     result+="<Project>\n";
     result+="id,name\n";
     result+=Uuid.unparse(id)+","+name+"\n";
-    result+="<Stations>\n";
-    result+="id,name,lat,lon\n";
+    result+="<Station>\n";
+    result+=Station.getCsvTitle();
     for(Station s in stations){
       result+=s.getCsv();
     }
+    result+="<Stop>\n";
+    result+=Stop.getCsvTitle();
+    for(Station s in stations){
+      for(Stop stop in s.stops){
+        result+=stop.getCsv();
+      }
+    }
+    result+="<Train>\n";
+    result+=Train.getCsvTitle();
+    for(Train t in trains){
+        result+=t.getCsv();
+    }
+    // result+="<Route>\n";
+    // result+="id\n";
+    // for(Route route in routes){
+    //   result+="${Uuid.unparse(route.id)}\n";
+    // }
 
-    var file = File('file.txt');
+    result+="<TrainClass>\n";
+    result+=TrainClass.getCsvTitle();
+    for(TrainClass trainClass in trainClasses){
+      result+=trainClass.getCsv();
+    }
+    result+="<Calendar>\n";
+    result+=Calendar.getCsvTitle();
+    for(Calendar calendar in calendars){
+      result+=calendar.getCsv();
+    }
+
+
+
+    result+="<Timetable>\n";
+    result+=TimeTable.getCsvTitle();
+    for(TimeTable timeTable in timetables){
+      result+=timeTable.getCsv();
+    }
+
+    result+="<TimetableRoute>\n";
+    result+=TimeTable.getTimetableRouteCsvTitle();
+    for(TimeTable timeTable in timetables){
+      result+=timeTable.getTimetableRouteCsv();
+    }
+    result+="<TimetableStationStyle>\n";
+    result+=TimeTable.getTimetableStationCsvTitle();
+    for(TimeTable timeTable in timetables){
+      result+=timeTable.getTimetableStationCsv();
+    }
+    result+="<TimetableTrain>\n";
+    result+=TimeTable.getTimetableTrainCsvTitle();
+    for(TimeTable timeTable in timetables){
+      result+=timeTable.getTimetableTrainCsv();
+    }
+    return result;
+  }
+
+  //CSV形式で保存します
+  void saveAsCsv(String fileName){
+    print(Directory.current);
+    var file = File(fileName);
     var sink = file.openWrite();
+    String result=getCsv();
     print(result);
     sink.write(result);
     sink.close();
 
 
   }
+  void fromCsvLine(List<String>line){
+    if(line.length<2){
+      throw new Exception("列数が足りない");
+    }
+    id=Uuid.parseAsByteList(line[0]);
+    name=line[1];
+  }
+
+  void loadCsv(String path){
+    new File(path).readAsLines()
+        .then((lines) {
+          fromCsvFile(lines);
+          saveAsCsv("test2.csv");
+    });
+  }
+  void fromCsvFile(List<String> dataList){
+    String status="";
+    bool titleLine=false;
+    for(String line in dataList){
+      if(line.startsWith("<")){
+        status=line.substring(1,line.length-1);
+        titleLine=true;
+        continue;
+      }
+      if(titleLine){
+        titleLine=false;
+        continue;
+      }
+      switch(status){
+        case "Project":
+          fromCsvLine(line.split(","));
+          break;
+        case "Station":
+          Station station=new Station();
+          station.fromCsvLine(line.split(","));
+          stations.add(station);
+          break;
+        case "Stop":
+          Stop stop=new Stop(new Station());
+          stop.fromCsvLine(line.split(","));
+          getStation(stop.fromCsvLine(line.split(","))).stops.add(stop);
+          break;
+        case "Train":
+
+          Train train=new Train();
+          train.fromCsvLine(line.split(","));
+          trains.add(train);
+          break;
+        case "TrainClass":
+          TrainClass trainClass=new TrainClass();
+          trainClass.fromCsvLine(line.split(","));
+          trainClasses.add(trainClass);
+          break;
+        case "Calendar":
+          Calendar calendar=new Calendar();
+          calendar.fromCsvLine(line.split(","));
+          calendars.add(calendar);
+          break;
+        case "Timetable":
+          TimeTable timetable=new TimeTable(new Calendar());
+          timetable.fromCsvLine(line.split(","),this);
+          timetables.add(timetable);
+          break;
+        case "TimetableRoute":
+          TimeTable.fromTimetableRouteCsvLine(line.split(","),this);
+          break;
+        case "TimetableStationStyle":
+          TimeTable.fromTimetableStationCsvLine(line.split(","),this);
+          break;
+        case "TimetableTrain":
+          TimeTable.fromTimetableTrainCsvLine(line.split(","),this);
+          break;
+      }
 
 
+    }
+
+  }
+
+  Calendar getCalendar(Uint8List uuid){
+    for(Calendar c in calendars){
+      if(c.id==uuid){
+        return c;
+      }
+    }
+    throw new Exception("uuid:${Uuid.unparse(uuid)} is not calendar's id");
+  }
+
+  TimeTable getTimeTable(Uint8List uuid){
+    for(TimeTable t in timetables){
+      if(t.id==uuid){
+        return t;
+      }
+    }
+    throw new Exception("uuid:${Uuid.unparse(uuid)} is not timetable's id");
+  }
+  Train getTrain(Uint8List uuid){
+    for(Train t in trains){
+      if(t.id==uuid){
+        return t;
+      }
+    }
+    throw new Exception("uuid:${Uuid.unparse(uuid)} is not train's id");
+  }
+  Station getStation(Uint8List uuid){
+    for(Station s in stations){
+      if(s.id==uuid){
+        return s;
+      }
+    }
+    throw new Exception("uuid:${Uuid.unparse(uuid)} is not station's id");
+  }
 
 
 
@@ -283,9 +457,23 @@ class Station{
   double lon=135;
 
   List<Stop> stops=[];
+  static getCsvTitle(){
+    return "id,name,lat,lon\n";
+  }
   String getCsv(){
     return "${Uuid.unparse(id)},$name,$lat,$lon\n";
   }
+  void fromCsvLine(List<String>line){
+    if(line.length<4){
+      throw new Exception("Station CSV読み込み列数が足りない");
+    }
+    id=Uuid.parseAsByteList(line[0]);
+    name=line[1];
+    lat=double.parse(line[2]);
+    lon=double.parse(line[3]);
+
+  }
+
 
 }
 ///駅の中の１つの番線を示す。
@@ -294,6 +482,27 @@ class Stop{
   Uint8List id=Uuid.parseAsByteList(Uuid().v4());
   String name="";
   String shortName="";
+  Station station;
+  Stop(this.station);
+  static getCsvTitle(){
+    return "id,station_id,name,shortName\n";
+  }
+  String getCsv(){
+    return "${Uuid.unparse(id)},${Uuid.unparse(station.id)},$name,$shortName\n";
+  }
+  Uint8List fromCsvLine(List<String>line){
+    if(line.length<4){
+      throw new Exception("Stop CSV読み込み列数が足りない");
+    }
+    id=Uuid.parseAsByteList(line[0]);
+    name=line[2];
+    shortName=line[3];
+    return Uuid.parseAsByteList(line[1]);
+  }
+
+
+
+
 
 }
 
@@ -308,6 +517,16 @@ class Route{
   String name="";
   Color routeColor=Color.fromARGB(255, 0, 0, 0);
   List<Path> paths=[];
+
+
+  static getCsvTitle(){
+    return "id,name,routeColor\n";
+  }
+  String getCsv(){
+    return "${Uuid.unparse(id)},$name,${routeColor.toString().substring(6,16)}\n";
+  }
+
+
 
 
 }
@@ -333,6 +552,23 @@ class Train{
 
   //uuid
   List<Uint8List> trips=[];
+
+  static getCsvTitle(){
+    return "id,name,number\n";
+  }
+  String getCsv(){
+    return "${Uuid.unparse(id)},$name,$number\n";
+  }
+  void fromCsvLine(List<String>line){
+    if(line.length<3){
+      throw new Exception("Train CSV読み込み列数が足りない");
+    }
+    id=Uuid.parseAsByteList(line[0]);
+    name=line[1];
+    number=line[2];
+  }
+
+
 }
 ///１つの列車行程を表します。
 ///Trip内では、列車番号、列車種別、運用車両の変更を許しません
@@ -344,6 +580,10 @@ class Trip{
   Uint8List id=Uuid.parseAsByteList(Uuid().v4());
   Direction direction=Direction.DOWN;
   TrainClass trainClass=TrainClass.DEFAULT();
+  Route route;
+  Trip(this.route);
+
+
 }
 
 
@@ -371,10 +611,40 @@ class TrainClass{
   TrainClass.DEFAULT(){
   }
 
+  static getCsvTitle(){
+    return "id,name,color\n";
+  }
+  String getCsv(){
+    return "${Uuid.unparse(id)},$name,${color.toString().substring(6,16)}\n";
+  }
+  void fromCsvLine(List<String>line){
+    if(line.length<3){
+      throw new Exception("TrainClass CSV読み込み列数が足りない");
+    }
+    id=Uuid.parseAsByteList(line[0]);
+    name=line[1];
+    color=new Color(int.parse(line[2]));
+  }
+
+
 }
 class Calendar{
   Uint8List id=Uuid.parseAsByteList(Uuid().v4());
   String name="";
+  static getCsvTitle(){
+    return "id,name\n";
+  }
+  String getCsv(){
+    return "${Uuid.unparse(id)},$name\n";
+  }
+  void fromCsvLine(List<String>line){
+    if(line.length<2){
+      throw new Exception("Train CSV読み込み列数が足りない");
+    }
+    id=Uuid.parseAsByteList(line[0]);
+    name=line[1];
+  }
+
 
 }
 

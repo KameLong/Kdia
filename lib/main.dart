@@ -11,7 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     KdiaProject project=new KdiaProject();
-    project.createSampleProject();
+    project.loadCsv("test.csv");
+//    project.createSampleProject();
     print(project);
     return MaterialApp(
       localizationsDelegates: [
