@@ -11,8 +11,8 @@ import 'KdiaData.dart';
 ///時刻データはKdiaDataに任せるので、
 ///このクラスでは時刻表で用いるRoute,時刻表スタイルなどを保持します。
 class TimeTable{
-  Uint8List id=Uuid.parseAsByteList(Uuid().v4());
-  List<Uint8List> routes=[];
+  UUID id=UUID.fromString(Uuid().v4());
+  List<UUID> routes=[];
 
   Map<Station,TimeTableStationStyle>stationStyle={};
 
@@ -28,15 +28,15 @@ class TimeTable{
     return "id,name,calendar_id\n";
   }
   String getCsv(){
-    return "${Uuid.unparse(id)},$name,${Uuid.unparse(calendar.id)}\n";
+    return "$id,$name,${calendar.id}\n";
   }
   void fromCsvLine(List<String>line,KdiaProject project){
     if(line.length<3){
       throw new Exception("Train CSV読み込み列数が足りない");
     }
-    id=Uuid.parseAsByteList(line[0]);
+    id=UUID.fromString(line[0]);
     name=line[1];
-    calendar=project.getCalendar(Uuid.parseAsByteList(line[2]));
+    calendar=project.getCalendar(UUID.fromString(line[2]));
   }
 
 
@@ -47,7 +47,7 @@ class TimeTable{
   getTimetableRouteCsv(){
     String result="";
     routes.asMap().forEach((index, routeID) {
-      result+="${Uuid.unparse(id)},${Uuid.unparse(routeID)},$index,0\n";
+      result+="$id,${routeID},$index,0\n";
     });
     return result;
   }
@@ -55,8 +55,8 @@ class TimeTable{
     if(line.length<4){
       throw new Exception("CSV読み込み列数が足りない");
     }
-    TimeTable table=project.getTimeTable(Uuid.parseAsByteList(line[0]));
-    table.routes.add(Uuid.parseAsByteList(line[1]));
+    TimeTable table=project.getTimeTable(UUID.fromString(line[0]));
+    table.routes.add(UUID.fromString(line[1]));
 
   }
   static getTimetableStationCsvTitle(){
@@ -65,7 +65,7 @@ class TimeTable{
   getTimetableStationCsv(){
     String result="";
     stationStyle.forEach((station, style) {
-      result+="${Uuid.unparse(id)},${Uuid.unparse(station.id)},${style.isMainStation},${style.showDown},${style.showUp}\n";
+      result+="$id,${station.id},${style.isMainStation},${style.showDown},${style.showUp}\n";
     });
     return result;
   }
@@ -73,8 +73,8 @@ class TimeTable{
     if(line.length<5){
       throw new Exception("CSV読み込み列数が足りない");
     }
-    TimeTable table=project.getTimeTable(Uuid.parseAsByteList(line[0]));
-    Station station=project.getStation(Uuid.parseAsByteList(line[0]));
+    TimeTable table=project.getTimeTable(UUID.fromString(line[0]));
+    Station station=project.getStation(UUID.fromString(line[1]));
     TimeTableStationStyle style=new TimeTableStationStyle();
     style.isMainStation=(line[2]=="1");
     style.showDown=int.parse(line[3]);
@@ -88,10 +88,10 @@ class TimeTable{
   getTimetableTrainCsv(){
     String result="";
     downTrain.asMap().forEach((index, train) {
-      result+="${Uuid.unparse(id)},${Uuid.unparse(train.id)},0,$index\n";
+      result+="$id,${train.id},0,$index\n";
     });
     upTrain.asMap().forEach((index, train) {
-      result+="${Uuid.unparse(id)},${Uuid.unparse(train.id)},1,$index\n";
+      result+="$id,${train.id},1,$index\n";
     });
     return result;
   }
@@ -99,11 +99,11 @@ class TimeTable{
     if(line.length<4){
       throw new Exception("CSV読み込み列数が足りない");
     }
-    TimeTable table=project.getTimeTable(Uuid.parseAsByteList(line[0]));
+    TimeTable table=project.getTimeTable(UUID.fromString(line[0]));
     if(line[2]=="0"){
-      table.downTrain.add(project.getTrain(Uuid.parseAsByteList(line[1])));
+      table.downTrain.add(project.getTrain(UUID.fromString(line[1])));
     }else{
-      table.upTrain.add(project.getTrain(Uuid.parseAsByteList(line[1])));
+      table.upTrain.add(project.getTrain(UUID.fromString(line[1])));
     }
 
   }
@@ -113,7 +113,7 @@ class TimeTable{
 
 //時刻表駅スタイル
 class TimeTableStationStyle{
-  Uint8List id=Uuid.parseAsByteList(Uuid().v4());
+  UUID id=UUID.fromString(Uuid().v4());
   bool isMainStation=false;
   int showDown=1;
   int showUp=1;
