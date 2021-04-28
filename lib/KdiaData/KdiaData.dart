@@ -248,11 +248,11 @@ class KdiaProject{
       ..upTrain.add(trains[3])
       ..upTrain.add(trains[4])
     );
-    routes[UUID.fromString("c444bfa2-282e-4b98-9f20-1a2806c7984c")]=new Route();
-    routes[UUID.fromString("8263ba6d-4264-4425-829e-1beee73abbc1")]=new Route();
-    routes[UUID.fromString("40d01d47-3754-4dbc-8e31-a981e7f89eec")]=new Route();
-    routes[UUID.fromString("2e0c2e2c-5ec1-4bf3-8015-9f0d8571cc4e")]=new Route();
-    routes[UUID.fromString("48e954cf-6207-4cfa-9004-bfb37e535459")]=new Route();
+    routes[UUID.fromString("c444bfa2-282e-4b98-9f20-1a2806c7984c")]=new Route(this);
+    routes[UUID.fromString("8263ba6d-4264-4425-829e-1beee73abbc1")]=new Route(this);
+    routes[UUID.fromString("40d01d47-3754-4dbc-8e31-a981e7f89eec")]=new Route(this);
+    routes[UUID.fromString("2e0c2e2c-5ec1-4bf3-8015-9f0d8571cc4e")]=new Route(this);
+    routes[UUID.fromString("48e954cf-6207-4cfa-9004-bfb37e535459")]=new Route(this);
     routes.forEach((key, value) {
       if(value!=null) {
         value.id = key;
@@ -549,10 +549,13 @@ class Stop{
 ///
 class Route{
   UUID id=UUID.fromString(Uuid().v4());
+  KdiaProject project;
   String name="";
   Color routeColor=Color.fromARGB(255, 0, 0, 0);
   List<Path> paths=[];
   List<Trip> trips=[];
+  Route(this.project) {
+  }
 
 
   void saveAsCsv(){
@@ -591,11 +594,51 @@ class Route{
     });
     return result;
   }
-  void fromCsv(List<String>line){
+  void fromCsvLine(List<String>line){
     id=UUID.fromString(line[0]);
     name=line[1];
     routeColor=new Color(int.parse(line[2]));
   }
+
+
+  void fromCsvFile(List<String> dataList){
+    String status="";
+    bool titleLine=false;
+    for(String line in dataList){
+      if(line.startsWith("<")){
+        status=line.substring(1,line.length-1);
+        titleLine=true;
+        continue;
+      }
+      if(titleLine){
+        titleLine=false;
+        continue;
+      }
+      switch(status){
+        case "Route":
+          fromCsvLine(line.split(","));
+          break;
+        case "Path":
+          Path path=new Path(new Station(),new Station());
+          path.fromCsv(line.split(","), project);
+          paths.add(path);
+          break;
+        case "Trip":
+          Trip trip=new Trip(this, new Train());
+          trip.fromCsvLine(line.split(","), project);
+          trips.add(trip);
+          break;
+        case "PathTime":
+          PathTime time=new PathTime(new Trip(this,new Train()),new Path(new Station(),new Station()), new Stop(new Station()));
+          time.fromCsvLine(line.split(","), project, this);
+      }
+
+
+    }
+
+  }
+
+
   Path getPath(UUID uuid){
     for(Path p in paths){
       if(p.id==uuid){
@@ -605,6 +648,16 @@ class Route{
     throw new Exception("uuid:${(uuid)} is not path's id");
 
   }
+Trip getTrip(UUID uuid){
+  for(Trip t in trips){
+    if(t.id==uuid){
+      return t;
+    }
+  }
+  throw new Exception("uuid:${(uuid)} is not trip's id");
+
+}
+
 
 
 
@@ -701,36 +754,39 @@ class Trip{
 class PathTime {
   UUID id=UUID.fromString(Uuid().v4());
   Direction direction=Direction.DOWN;
+  Trip trip;
   Path path;
   Stop stop;
   int depTime = 0;
   int ariTime = 0;
   int stopPos = -1;
   StopType stopType=StopType.NO_SERVICE;
-  PathTime(this.path,this.stop);
+  PathTime(this.trip,this.path,this.stop);
   static getCsvTitle(){
-    return "id,direction,path_id,dep_time,ari_time,stop_id,stop_type\n";
+    return "id,trip_id,direction,path_id,dep_time,ari_time,stop_id,stop_type\n";
   }
   String getCsv(){
-    return "$id,$direction,${(path.id)},$depTime,$ariTime,${(stop.id)},$stopType\n";
+    return "$id,${trip.id},$direction,${(path.id)},$depTime,$ariTime,${(stop.id)},$stopType\n";
   }
   void fromCsvLine(List<String>line,KdiaProject project,Route route){
-    if(line.length<7){
+    if(line.length<8){
       throw new Exception("PathTime CSV読み込み列数が足りない");
     }
     id=UUID.fromString(line[0]);
+    trip=route.getTrip(UUID.fromString(line[1]));
 //    direction=
-    path=route.getPath(UUID.fromString(line[2]));
-    depTime=int.parse(line[3]);
-    ariTime=int.parse(line[4]);
+    path=route.getPath(UUID.fromString(line[3]));
+    depTime=int.parse(line[4]);
+    ariTime=int.parse(line[5]);
     if(direction==Direction.DOWN){
       Station station=path.start;
-      stop=station.getStop(UUID.fromString(line[5]));
+      stop=station.getStop(UUID.fromString(line[6]));
     }else{
       Station station=path.end;
-      stop=station.getStop(UUID.fromString(line[5]));
+      stop=station.getStop(UUID.fromString(line[7]));
     }
 //    stopType=int.parse(line[6]);
+    this.trip.pathTimes[path]=this;
   }
 
 }
