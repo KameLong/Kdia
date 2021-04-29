@@ -1,0 +1,15 @@
+id,name,routeColor,,,,,
+2e0c2e2c-5ec1-4bf3-8015-9f0d8571cc4e,二俣川〜湘南台,0xFF000000,,,,,
+<Path>,,,,,,,
+id,start_station_id,end_station_id,seq,,,,
+222df202-5de3-4e75-8540-d538bebad570,53534708-9eac-418b-8640-671acbf247c2,dbf73ecf-8a7f-452a-9248-b5d85c919b73,1,,,,
+<Trip>,,,,,,,
+id,direction,trainClass_id,train_id,,,,
+73b0323d-5c14-4643-b1d0-1278013c94cb,0,511abe32-5367-46c8-a408-f3d37e211d11,b20d194d-17a0-4353-a396-870a5ecf499a,,,,
+31465d24-cffe-4a96-8ebf-d1f63b7f75b3,1,511abe32-5367-46c8-a408-f3d37e211d11,effcf5aa-2446-47f6-b885-569b589e14c2,,,,
+<PathTime>,,,,,,,
+id,trip_id,direction,path_id,depTime,Airtime ,atop,stoptype
+78c619ff-0a9f-4ba3-8b23-3b836672bae1,73b0323d-5c14-4643-b1d0-1278013c94cb,0,222df202-5de3-4e75-8540-d538bebad570,37560,37980,ce1aeb53-d754-43f6-a058-30a637fa25f3,1
+b7539dc5-6f1a-4c32-8f88-8bcfb9188120,73b0323d-5c14-4643-b1d0-1278013c94cb,0,,,,4d0d6c40-b85a-4ba2-a5b7-8bba64083a25,1
+a372e50c-59e0-48b6-8af8-2344854fdcd7,31465d24-cffe-4a96-8ebf-d1f63b7f75b3,1,222df202-5de3-4e75-8540-d538bebad570,36900,37140,4d0d6c40-b85a-4ba2-a5b7-8bba64083a25,1
+c85b789b-1fda-4ba0-bd3b-6671a7a3071b,31465d24-cffe-4a96-8ebf-d1f63b7f75b3,1,,,,ce1aeb53-d754-43f6-a058-30a637fa25f3,1

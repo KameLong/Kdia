@@ -1,9 +1,14 @@
+
 import 'package:kdia/KdiaData/KdiaTimeTable.dart';
+import 'package:kdia/main.dart';
 import 'dart:typed_data';
 import 'dart:ui';
 import 'dart:io';
 import 'package:uuid/uuid.dart';
 import 'package:collection/collection.dart';
+import 'dart:async' show Future;
+import 'package:flutter/services.dart' show rootBundle;
+
 
 ///文字列定義（日本語）
 const String NEW_PROJECT="新しいプロジェクト";
@@ -17,6 +22,7 @@ const String NEW_STATION="新しい駅";
 ///KdiaProjecct外との直通や運用操作は考えなくて良い
 class KdiaProject{
   UUID id=UUID.fromString(Uuid().v4());
+  String filepath="";
   String name=NEW_PROJECT;
   List<Station> stations=[];
   List<Train>trains=[];
@@ -268,12 +274,6 @@ class KdiaProject{
     result+=id.toString()+","+name+"\n";
     result+="<Route>\n";
     result+="id\n";
-    routes.forEach((uuid, route) {
-        result+=uuid.toString()+"\n";
-        if(route!=null){
-          route.saveAsCsv();
-        }
-    });
 
     result+="<Station>\n";
     result+=Station.getCsvTitle();
@@ -332,12 +332,22 @@ class KdiaProject{
 
   //CSV形式で保存します
   void saveAsCsv(String fileName){
-    print(Directory.current);
-    var file = File(fileName);
-    var sink = file.openWrite();
-    String result=getCsv();
-    sink.write(result);
-    sink.close();
+    print(this);
+    new Directory('./'+fileName).create(recursive: true)
+        .then((Directory directory) {
+      var file = File(Directory.current.path+"/"+fileName+"/"+fileName+".csv");
+      var sink = file.openWrite();
+      String result=getCsv();
+      sink.write(result);
+      sink.close();
+      routes.forEach((uuid, route) {
+        result+=uuid.toString()+"\n";
+        if(route!=null){
+          route.saveAsCsv(Directory.current.path+"/"+fileName+"/");
+        }
+      });
+    });
+
 
 
   }
@@ -349,14 +359,14 @@ class KdiaProject{
     name=line[1];
   }
 
-  void loadCsv(String path){
-    new File(path).readAsLines()
-        .then((lines) {
-          fromCsvFile(lines);
-          saveAsCsv("test2.csv");
+  void loadCsv(String filePath){
+    new File(filePath).readAsLines()
+        .then((lines) async {
+          await fromCsvFile(lines);
+          saveAsCsv("test2");
     });
   }
-  void fromCsvFile(List<String> dataList){
+  Future<void> fromCsvFile (List<String> dataList) async {
     String status="";
     bool titleLine=false;
     for(String line in dataList){
@@ -466,6 +476,24 @@ class KdiaProject{
 
 
 
+  ///sampleを読み込む
+Future<void>loadSample()async{
+  String data=await rootBundle.loadString('sampleData/sample.csv');
+  this.fromCsvFile(data.split("\n"));
+  for (var key in routes.keys) {
+    routes[key]=new Route(this);
+    String data2=await rootBundle.loadString('sampleData/$key.csv');
+    routes[key]?.fromCsvFile(data2.split("\n"));
+  }
+  routes.forEach((key, value) {
+    print(value?.id);
+  });
+
+
+}
+
+
+
 
 }
 ///一つの駅を表す
@@ -558,9 +586,8 @@ class Route{
   }
 
 
-  void saveAsCsv(){
-    print(Directory.current);
-    var file = File(id.toString()+".csv");
+  void saveAsCsv(String path){
+    var file = File(path+id.toString()+".csv");
     var sink = file.openWrite();
     String result=getCsv();
     sink.write(result);
@@ -573,7 +600,7 @@ class Route{
   String getCsv(){
     String result="";
     result+="<Route>\n";
-    result=getCsvTitle();
+    result+=getCsvTitle();
     result+="$id,$name,${routeColor.toString().substring(6,16)}\n";
     result+="<Path>\n";
     result+=Path.getCsvTitle();
@@ -586,9 +613,9 @@ class Route{
       result+=trip.getCsv();
     });
     result+="<PathTime>\n";
-    result+=Path.getCsvTitle();
+    result+=PathTime.getCsvTitle();
     trips.forEach((trip) {
-      trip.pathTimes.forEach((path, pathTime) {
+      trip.pathTimes.asMap().forEach((index, pathTime) {
         result+=pathTime.getCsv();
       });
     });
@@ -601,10 +628,25 @@ class Route{
   }
 
 
+  Future<void> loadCsv(String path,UUID id)async{
+    List<String> lines=await new File(path+"/"+id.toString()+".csv").readAsLines();
+    fromCsvFile(lines);
+  }
+
   void fromCsvFile(List<String> dataList){
     String status="";
     bool titleLine=false;
+
+    status="Route";
+    titleLine=true;
     for(String line in dataList){
+      if(line.length==0){
+        continue;
+      }
+      while(line.endsWith(",")){
+        line=line.substring(0,line.length-1);
+      }
+      print(line);
       if(line.startsWith("<")){
         status=line.substring(1,line.length-1);
         titleLine=true;
@@ -725,7 +767,7 @@ class Trip{
   TrainClass trainClass=TrainClass.DEFAULT();
   Route route;
   Train train;
-  Map<Path,PathTime>pathTimes={};
+  List<PathTime> pathTimes=[];
   Trip(this.route,this.train);
 
   static getCsvTitle(){
@@ -755,10 +797,10 @@ class PathTime {
   UUID id=UUID.fromString(Uuid().v4());
   Direction direction=Direction.DOWN;
   Trip trip;
-  Path path;
+  Path? path=null;
   Stop stop;
-  int depTime = 0;
-  int ariTime = 0;
+  int depTime = -1;
+  int ariTime = -1;
   int stopPos = -1;
   StopType stopType=StopType.NO_SERVICE;
   PathTime(this.trip,this.path,this.stop);
@@ -766,7 +808,7 @@ class PathTime {
     return "id,trip_id,direction,path_id,dep_time,ari_time,stop_id,stop_type\n";
   }
   String getCsv(){
-    return "$id,${trip.id},$direction,${(path.id)},$depTime,$ariTime,${(stop.id)},$stopType\n";
+    return "$id,${trip.id},$direction,${(path?.id)},$depTime,$ariTime,${(stop.id)},$stopType\n";
   }
   void fromCsvLine(List<String>line,KdiaProject project,Route route){
     if(line.length<8){
@@ -775,19 +817,21 @@ class PathTime {
     id=UUID.fromString(line[0]);
     trip=route.getTrip(UUID.fromString(line[1]));
 //    direction=
-    path=route.getPath(UUID.fromString(line[3]));
-    depTime=int.parse(line[4]);
-    ariTime=int.parse(line[5]);
-    if(direction==Direction.DOWN){
-      Station station=path.start;
-      stop=station.getStop(UUID.fromString(line[6]));
-    }else{
-      Station station=path.end;
-      stop=station.getStop(UUID.fromString(line[7]));
+    if(line[3]!=""){
+      path=route.getPath(UUID.fromString(line[3]));
     }
+  if(line[4].length!=0){
+    depTime=int.parse(line[4]);
+    }
+if(line[5].length!=0){
+  ariTime=int.parse(line[5]);
+
+}
+
 //    stopType=int.parse(line[6]);
-    this.trip.pathTimes[path]=this;
+  trip.pathTimes.add(this);
   }
+
 
 }
 

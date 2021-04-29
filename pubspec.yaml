@@ -81,3 +81,5 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
   generate: true #自動生成フラグの有効化
+  assets:
+    - sampleData/

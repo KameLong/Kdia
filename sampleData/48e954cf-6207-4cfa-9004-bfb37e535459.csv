@@ -1,0 +1,16 @@
+<Route>
+id,name,routeColor
+48e954cf-6207-4cfa-9004-bfb37e535459,新宿〜西谷,0xff000000
+<Path>
+id,start_station_id,end_station_id,seq
+831cf353-cba7-4c5b-b3a9-2a3bd4a6885a,87ed37aa-8219-4252-8b08-e71c22a1d56f,7d9a837f-e41d-4c82-84b3-a46b5cff7be2,1
+<Trip>
+id,direction,trainClass_id,train_id
+ee9d65be-fe9e-4e9f-9bec-ec78389d08f6,0,511abe32-5367-46c8-a408-f3d37e211d11,8bfb2913-5c1d-4a32-ace0-2442944cac0c
+6fd08623-ff5b-4618-9a18-6331211173c9,1,511abe32-5367-46c8-a408-f3d37e211d11,df78665e-cb07-4783-8ba7-c92ff0ab02d1
+<PathTime>
+id,trip_id,direction,path_id,dep_time,ari_time,stop_id,stop_type
+f25fe048-7555-493f-8f62-251bd331e0c5,6fd08623-ff5b-4618-9a18-6331211173c9,1,831cf353-cba7-4c5b-b3a9-2a3bd4a6885a,38880,39300,c4276f81-7608-4fa8-b5e6-cc34a75aeba5,1
+a1bbdb89-f9be-4266-ad14-6b0352e4e4c2,6fd08623-ff5b-4618-9a18-6331211173c9,1,,,,e57f3ee3-8e0a-4ce2-b981-98fb966cc846,1
+fc8c65ef-fcdb-4b0c-a8b3-e53392a017d9,ee9d65be-fe9e-4e9f-9bec-ec78389d08f6,0,831cf353-cba7-4c5b-b3a9-2a3bd4a6885a,36000,37200,e57f3ee3-8e0a-4ce2-b981-98fb966cc846,1
+57da0872-c292-4581-8ee5-1f20707d1fc8,ee9d65be-fe9e-4e9f-9bec-ec78389d08f6,0,,,,c4276f81-7608-4fa8-b5e6-cc34a75aeba5,1
