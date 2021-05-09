@@ -9,6 +9,8 @@ import 'package:collection/collection.dart';
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
 
+import 'KLlibrary.dart';
+
 
 ///文字列定義（日本語）
 const String NEW_PROJECT="新しいプロジェクト";
@@ -100,32 +102,32 @@ class KdiaProject{
         ..id = UUID.fromString("4d0d6c40-b85a-4ba2-a5b7-8bba64083a25")
         ..name = "湘南台"
         ..shortName = "1");
-    trains.add(new Train()
+    trains.add(new Train(this)
       ..id = UUID.fromString("0200a722-ead5-4ff1-b681-c1bf5848aa3f")
       ..name = "相鉄本線下り"
       ..number = "1"
     );
-    trains.add(new Train()
+    trains.add(new Train(this)
       ..id = UUID.fromString("28f1bb92-a4f4-4dd2-b3fd-b3193ac35691")
       ..name = "相鉄本線上り"
       ..number = "2"
     );
-    trains.add(new Train()
+    trains.add(new Train(this)
       ..id = UUID.fromString("b20d194d-17a0-4353-a396-870a5ecf499a")
       ..name = "相鉄いずみ野線下り"
       ..number = "3"
     );
-    trains.add(new Train()
+    trains.add(new Train(this)
       ..id = UUID.fromString("effcf5aa-2446-47f6-b885-569b589e14c2")
       ..name = "相鉄いずみ野線上り"
       ..number = "4"
     );
-    trains.add(new Train()
+    trains.add(new Train(this)
       ..id = UUID.fromString("8bfb2913-5c1d-4a32-ace0-2442944cac0c")
       ..name = "直通線下り"
       ..number = "5"
     );
-    trains.add(new Train()
+    trains.add(new Train(this)
       ..id = UUID.fromString("df78665e-cb07-4783-8ba7-c92ff0ab02d1")
       ..name = "直通線上り"
       ..number = "6"
@@ -153,106 +155,6 @@ class KdiaProject{
     calendars.add(new Calendar()
       ..name = "平日"
       ..id = UUID.fromString("7292b8ae-2971-4c93-ae55-feef22a9b8c2")
-    );
-    timetables.add(new TimeTable(calendars[0])
-      ..id=UUID.fromString("0aee0d11-852e-4cb6-8834-71600a72774f")
-      ..routes.add(UUID.fromString("c444bfa2-282e-4b98-9f20-1a2806c7984c"))
-      ..routes.add(UUID.fromString("8263ba6d-4264-4425-829e-1beee73abbc1"))
-      ..routes.add(UUID.fromString("40d01d47-3754-4dbc-8e31-a981e7f89eec"))
-      ..stationStyle[stations[0]]=(new TimeTableStationStyle()
-        ..isMainStation=true
-        ..showDown=1
-        ..showUp=2)
-      ..stationStyle[stations[1]]=(new TimeTableStationStyle()
-        ..isMainStation=false
-        ..showDown=1
-        ..showUp=1)
-      ..stationStyle[stations[2]]=(new TimeTableStationStyle()
-        ..isMainStation=false
-        ..showDown=1
-        ..showUp=1)
-      ..stationStyle[stations[3]]=(new TimeTableStationStyle()
-        ..isMainStation=true
-        ..showDown=3
-        ..showUp=3)
-      ..stationStyle[stations[4]]=(new TimeTableStationStyle()
-        ..isMainStation=false
-        ..showDown=1
-        ..showUp=1)
-      ..stationStyle[stations[5]]=(new TimeTableStationStyle()
-        ..isMainStation=true
-        ..showDown=2
-        ..showUp=1)
-      ..downTrain.add(trains[0])
-      ..downTrain.add(trains[1])
-      ..downTrain.add(trains[2])
-      ..upTrain.add(trains[3])
-      ..upTrain.add(trains[4])
-      ..upTrain.add(trains[5])
-    );
-    timetables.add(new TimeTable(calendars[0])
-      ..id=UUID.fromString("d9490af9-7689-4bd3-9f62-59ce61705782")
-      ..routes.add(UUID.fromString("c444bfa2-282e-4b98-9f20-1a2806c7984c"))
-      ..routes.add(UUID.fromString("8263ba6d-4264-4425-829e-1beee73abbc1"))
-      ..routes.add(UUID.fromString("2e0c2e2c-5ec1-4bf3-8015-9f0d8571cc4e"))
-      ..stationStyle[stations[0]]=(new TimeTableStationStyle()
-        ..isMainStation=true
-        ..showDown=1
-        ..showUp=2)
-      ..stationStyle[stations[1]]=(new TimeTableStationStyle()
-        ..isMainStation=false
-        ..showDown=1
-        ..showUp=1)
-      ..stationStyle[stations[2]]=(new TimeTableStationStyle()
-        ..isMainStation=false
-        ..showDown=1
-        ..showUp=1)
-      ..stationStyle[stations[3]]=(new TimeTableStationStyle()
-        ..isMainStation=true
-        ..showDown=3
-        ..showUp=3)
-      ..stationStyle[stations[7]]=(new TimeTableStationStyle()
-        ..isMainStation=false
-        ..showDown=2
-        ..showUp=1)
-      ..downTrain.add(trains[1])
-      ..downTrain.add(trains[2])
-      ..downTrain.add(trains[0])
-      ..upTrain.add(trains[4])
-      ..upTrain.add(trains[5])
-      ..upTrain.add(trains[3])
-    );
-    timetables.add(new TimeTable(calendars[0])
-      ..id=UUID.fromString("b10f5a85-893f-402f-b9df-c2a28ebd77a7")
-      ..routes.add(UUID.fromString("48e954cf-6207-4cfa-9004-bfb37e535459"))
-      ..routes.add(UUID.fromString("8263ba6d-4264-4425-829e-1beee73abbc1"))
-      ..routes.add(UUID.fromString("40d01d47-3754-4dbc-8e31-a981e7f89eec"))
-      ..stationStyle[stations[6]]=(new TimeTableStationStyle()
-        ..isMainStation=true
-        ..showDown=1
-        ..showUp=2)
-      ..stationStyle[stations[2]]=(new TimeTableStationStyle()
-        ..isMainStation=false
-        ..showDown=1
-        ..showUp=1)
-      ..stationStyle[stations[3]]=(new TimeTableStationStyle()
-        ..isMainStation=false
-        ..showDown=3
-        ..showUp=3)
-      ..stationStyle[stations[4]]=(new TimeTableStationStyle()
-        ..isMainStation=false
-        ..showDown=1
-        ..showUp=1)
-      ..stationStyle[stations[5]]=(new TimeTableStationStyle()
-        ..isMainStation=true
-        ..showDown=2
-        ..showUp=1)
-      ..downTrain.add(trains[2])
-      ..downTrain.add(trains[0])
-      ..downTrain.add(trains[1])
-      ..upTrain.add(trains[5])
-      ..upTrain.add(trains[3])
-      ..upTrain.add(trains[4])
     );
     routes[UUID.fromString("c444bfa2-282e-4b98-9f20-1a2806c7984c")]=new Route(this);
     routes[UUID.fromString("8263ba6d-4264-4425-829e-1beee73abbc1")]=new Route(this);
@@ -313,14 +215,19 @@ class KdiaProject{
     }
 
     result+="<TimetableRoute>\n";
-    result+=TimeTable.getTimetableRouteCsvTitle();
+    result+=TimeTableRoute.getCsvTitle();
     for(TimeTable timeTable in timetables){
-      result+=timeTable.getTimetableRouteCsv();
+      timeTable.routes.asMap().forEach((index, route) {
+        result+=route.getCsv(timeTable.id,index);
+
+      });
     }
-    result+="<TimetableStationStyle>\n";
-    result+=TimeTable.getTimetableStationCsvTitle();
+    result+="<TimetablePathStyle>\n";
+    result+=TimeTablePathStyle.getCsvTitle();
     for(TimeTable timeTable in timetables){
-      result+=timeTable.getTimetableStationCsv();
+      timeTable.pathStyle.forEach((element) {
+        result+=element.getCsv(timeTable.id);
+      });
     }
     result+="<TimetableTrain>\n";
     result+=TimeTable.getTimetableTrainCsvTitle();
@@ -397,7 +304,7 @@ class KdiaProject{
           break;
         case "Train":
 
-          Train train=new Train();
+          Train train=new Train(this);
           train.fromCsvLine(line.split(","));
           trains.add(train);
           break;
@@ -412,15 +319,15 @@ class KdiaProject{
           calendars.add(calendar);
           break;
         case "Timetable":
-          TimeTable timetable=new TimeTable(new Calendar());
+          TimeTable timetable=new TimeTable(this,new Calendar());
           timetable.fromCsvLine(line.split(","),this);
           timetables.add(timetable);
           break;
         case "TimetableRoute":
-          TimeTable.fromTimetableRouteCsvLine(line.split(","),this);
+          TimeTableRoute.fromCsvLine(line.split(","),this);
           break;
-        case "TimetableStationStyle":
-          TimeTable.fromTimetableStationCsvLine(line.split(","),this);
+        case "TimetablePathStyle":
+          TimeTablePathStyle.fromCsvLine(line.split(","),this);
           break;
         case "TimetableTrain":
           TimeTable.fromTimetableTrainCsvLine(line.split(","),this);
@@ -480,15 +387,32 @@ class KdiaProject{
 Future<void>loadSample()async{
   String data=await rootBundle.loadString('sampleData/sample.csv');
   this.fromCsvFile(data.split("\n"));
+  print("loadSample");
   for (var key in routes.keys) {
     routes[key]=new Route(this);
     String data2=await rootBundle.loadString('sampleData/$key.csv');
     routes[key]?.fromCsvFile(data2.split("\n"));
   }
-  routes.forEach((key, value) {
-    print(value?.id);
+  routes.forEach((key, value)async {
+    print("$key,${value?.id},${key==value?.id}");
   });
 
+
+}
+Route getRoute(UUID routeID){
+    if(routes[routeID]!=null){
+      return routes[routeID]!;
+    }
+    throw new Exception("$routeID:routeが読み込まれていません。　あらかじめrouteを読み込んでください");
+}
+
+Future<Route> prepareRoute(UUID routeID)async{
+    if(routes[routeID]==null){
+      routes[routeID]=new Route(this);
+      String data2=await rootBundle.loadString('sampleData/$routeID.csv');
+      routes[routeID]?.fromCsvFile(data2.split("\n"));
+    }
+    return routes[routeID]!;
 
 }
 
@@ -666,12 +590,12 @@ class Route{
           paths.add(path);
           break;
         case "Trip":
-          Trip trip=new Trip(this, new Train());
+          Trip trip=new Trip(this, new Train(project));
           trip.fromCsvLine(line.split(","), project);
           trips.add(trip);
           break;
         case "PathTime":
-          PathTime time=new PathTime(new Trip(this,new Train()),new Path(new Station(),new Station()), new Stop(new Station()));
+          PathTime time=new PathTime(new Trip(this,new Train(project)),new Path(new Station(),new Station()), new Stop(new Station()));
           time.fromCsvLine(line.split(","), project, this);
       }
 
@@ -731,9 +655,11 @@ class Path{
 ///１つのTrainは時刻表上でできるだけまとめて表示されます。
 ///TrainはKdiaProject直下に置かれます
 class Train{
+  KdiaProject project;
   UUID id=UUID.fromString(Uuid().v4());
   String name="";
   String number="";
+  Train(this.project);
 
   //uuid
   List<UUID> trips=[];
@@ -893,35 +819,3 @@ enum StopType{
 }
 
 
-class UUID{
-  List<int>value=[];
-  static UUID fromString(String uuidString){
-    UUID uuid=new UUID();
-    uuid.value=Uuid.parse(uuidString);
-    return uuid;
-  }
-  @override
-  bool operator ==(Object other) {
-    if(other is UUID){
-      if(this.value.length==other.value.length){
-        for(int i=0;i<this.value.length;i++){
-          if(this.value[i]==other.value[i]){
-
-          }else{
-            return false;
-          }
-        }
-        return true;
-      }
-    }
-    return false;
-  }
-
-  @override
-  int get hashCode => value.hashCode;
-
-  @override
-  String toString() {
-    return Uuid.unparse(value);
-  }
-}

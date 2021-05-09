@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:kdia/KdiaData/KLlibrary.dart';
 import 'package:kdia/KdiaData/KdiaData.dart';
+import 'package:kdia/KdiaData/KdiaTimeTable.dart';
+import 'package:kdia/TimetableView/TimetableView.dart';
 import 'package:path_provider/path_provider.dart';
 void main() {
   runApp(MyApp());
@@ -12,8 +15,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    KdiaProject project=new KdiaProject();
-    project.loadSample();
     return MaterialApp(
       localizationsDelegates: [
         AppLocalizations.delegate,
@@ -45,7 +46,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key,required this.title}) : super(key: key);
+  MyHomePage({Key? key,required this.title}) : super(key: key){
+  }
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -63,18 +65,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  TimeTable timeTable=new TimeTable(new KdiaProject(), new Calendar());
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+  _MyHomePageState(){
+    KdiaProject project=new KdiaProject();
+    project.loadSample().then((value) {
+      setState(() {
+        print(project.routes[UUID.fromString("c444bfa2-282e-4b98-9f20-1a2806c7984c")]);
+        timeTable = project.timetables[0];
+      });
     });
+
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -90,42 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              AppLocalizations.of(context)!.hello("kazutxt"),
-            ),
-            Text(
-              AppLocalizations.of(context)!.allow,
-            ),
-            Text(
-              AppLocalizations.of(context)!.deny,
-            ),         ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: TimeTableView(timeTable,Direction.DOWN)
     );
   }
 }
